@@ -380,6 +380,12 @@ function key_shortcuts() {
             send_key_press(
                 e.key == "A" ? "ArrowDown" : "ArrowUp"
             );
+        } else if (e.key == "c" ) {
+            // svg-icon 控制字幕打开与关闭
+            // -subtitle 控制字幕管理菜单
+            // 这里实现: 开关字幕但不显示菜单
+            document.querySelector(".bpx-player-ctrl-subtitle .bpx-common-svg-icon").click();
+            document.querySelector(".bpx-player-ctrl-subtitle").click();
         }
     });
 
