@@ -257,8 +257,8 @@ function inputBlur() {
 
     listenForDOM(".nav-search-input", el => {
         el.addEventListener("blur", (e) => {
-            if (event.type === 'blur' && event.relatedTarget && event.relatedTarget.tagName !== "INPUT") {
-                console.log('Click blur event', event.relatedTarget);
+            if (e.type === 'blur' && e.relatedTarget && e.relatedTarget.tagName !== "INPUT") {
+                console.log('Click blur event', e.relatedTarget);
                 return;
             }
 
@@ -272,6 +272,11 @@ function inputBlur() {
 
     listenForDOM(".search-input-el", el => {
         el.addEventListener("blur", (e) => {
+            if (e.type === 'blur' && e.relatedTarget && e.relatedTarget.tagName !== "INPUT") {
+                console.log('Click blur event', e.relatedTarget);
+                return;
+            }
+
             const panel = document.querySelector(".search-panel-popover");
             panel.style.display = "none";
         });
@@ -329,6 +334,7 @@ function send_key_press(key="ArrowRight", eventType="keydown") {
         ArrowRight: 39,
         ArrowUp: 38,
         ArrowDown: 40,
+        d: 68,
     }[ key ];
 
     const evt = new KeyboardEvent(eventType, {
@@ -386,6 +392,21 @@ function key_shortcuts() {
             // 这里实现: 开关字幕但不显示菜单
             document.querySelector(".bpx-player-ctrl-subtitle .bpx-common-svg-icon").click();
             document.querySelector(".bpx-player-ctrl-subtitle").click();
+        } else if (e.key == "q" ) {
+
+            // ctrl+q is reserved
+            if( e.ctrlKey ) {
+                return;
+            }
+
+            // only work for single q press
+
+            e.stopPropagation();
+
+            send_key_press("d");
+            setTimeout(() => {
+                send_key_press("d", "keyup");
+            }, 100);
         }
     });
 
