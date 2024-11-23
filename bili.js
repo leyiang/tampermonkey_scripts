@@ -45,14 +45,16 @@ function disableHover( sel_list ) {
     });
 }
 
-function listenForDOM(sel, cb) {
+function listenForDOM(sel, cb, tryCount = 0) {
+    if( tryCount > 20 ) return;
+
     const el = document.querySelector(sel);
 
     if( el && el instanceof HTMLElement ) {
         slog("[BILI], Got el", el);
         cb?.( el );
     } else {
-        setTimeout(() => listenForDOM(sel, cb), 1000 );
+        setTimeout(() => listenForDOM(sel, cb, tryCount + 1), 1000 );
     }
 }
 
@@ -220,7 +222,8 @@ const sel_list = [
 function updateRole() {
     const selectors = [
         '.bili-dyn-action', '.bili-rich-text-module.at',
-        '.video-pod__item'
+        '.video-pod__item', '.toggle-btn', '.bili-rich-text__action',
+        '.bili-dyn-up-list__item', '.history-item'
     ];
 
     selectors.forEach(selector => {
@@ -229,6 +232,16 @@ function updateRole() {
                 el.setAttribute('role', 'button');
             });
         });
+    });
+
+    document.addEventListener("DOMNodeInserted", e => {
+        if( e.target instanceof HTMLElement ) {
+            selectors.forEach(selector => {
+                e.target.querySelectorAll(selector).forEach( el => {
+                    el.setAttribute('role', 'button');
+                });
+            });
+        }
     });
 }
 
@@ -244,27 +257,141 @@ function inputBlur() {
 
     listenForDOM(".nav-search-input", el => {
         el.addEventListener("blur", (e) => {
-            if (event.type === 'blur' && event.relatedTarget) {
-                console.log('Click blur event');
-            } else if (event.type === 'blur' && !event.relatedTarget) {
-                hideSearchSuggestion(true);
+            if (event.type === 'blur' && event.relatedTarget && event.relatedTarget.tagName !== "INPUT") {
+                console.log('Click blur event', event.relatedTarget);
+                return;
             }
+
+            hideSearchSuggestion(true);
         });
 
         el.addEventListener("focus", () => {
             hideSearchSuggestion();
         });
     });
+
+    listenForDOM(".search-input-el", el => {
+        el.addEventListener("blur", (e) => {
+            const panel = document.querySelector(".search-panel-popover");
+            panel.style.display = "none";
+        });
+    });
+}
+
+
+function center_player() {
+    const el = document.querySelector("video");
+    console.log( "vvv", el );
+
+    setTimeout(() => {
+        el.scrollIntoView({
+            behavior: 'auto',
+            block: 'center',
+            inline: 'center'
+        });
+    }, 100);
+    // window.scrollTo(0, 70);
+}
+
+// dir = {prev|next}
+function navigate_page(dir) {
+    const wait = 150;
+
+    // Search Page
+    if( window.location.host == "search.bilibili.com" ) {
+        const wrap = document.querySelector(".vui_pagenation--btns");
+
+        dir == "prev"
+            ? wrap.firstElementChild?.click()
+            : wrap.lastElementChild?.click()
+
+        setTimeout(() => {
+            document.documentElement.scrollTop = 227;
+        }, wait );
+    // Space Page
+    } else if (window.location.host == "space.bilibili.com") {
+
+        if( dir == "prev" ) {
+            document.querySelector(".be-pager-prev")?.click();
+        } else {
+            document.querySelector(".be-pager-next")?.click();
+        }
+
+        setTimeout(() => {
+            document.documentElement.scrollTop = 452;
+        }, wait );
+    }
+}
+
+function send_key_press(key="ArrowRight", eventType="keydown") {
+    const keyCode = {
+        ArrowLeft: 37,
+        ArrowRight: 39,
+        ArrowUp: 38,
+        ArrowDown: 40,
+    }[ key ];
+
+    const evt = new KeyboardEvent(eventType, {
+        key: key,
+        code: key,
+        keyCode: keyCode,
+        which: keyCode,
+        altKey: false,
+        ctrlKey: false,
+        shiftKey: false,
+        metaKey: false,
+        repeat: false,
+        bubbles: true
+    });
+
+    window.dispatchEvent(evt);
 }
 
 function key_shortcuts() {
     document.addEventListener('keydown', (e) => {
-        console.log( e.key )
+        console.log( e.key );
+
         if( e.key === "`" ) {
-            document.querySelector(".bpx-player-ctrl-full").click()
-            console.log( document.querySelector(".bpx-player-ctrl-full") )
+            let curFull = !!document.fullscreenElement;
+
+            const btn = document.querySelector(".bpx-player-ctrl-full").click()
+
+            if( curFull && document.documentElement.scrollTop < 690 ) {
+                // 让播放器在屏幕居中
+                center_player()
+            }
+        } else if ( e.key == "a" || e.key == "s" ) {
+            if( document.activeElement.tagName == "INPUT" ) {
+                return;
+            }
+
+            if( ["search.bilibili.com", "space.bilibili.com"].includes(window.location.host) ) {
+                navigate_page(
+                    // "1" means prev
+                    // "2" means next
+                    e.key == "a" ? "prev" : "next"
+                );
+            } else {
+                send_key_press(
+                    e.key == "a" ? "ArrowLeft" : "ArrowRight"
+                );
+            }
+        } else if ( e.key == "A" || e.key == "S" ) {
+            send_key_press(
+                e.key == "A" ? "ArrowDown" : "ArrowUp"
+            );
         }
     });
+
+    document.addEventListener('keyup', (e) => {
+        if ( e.key == "a" || e.key == "s" ) {
+            send_key_press(
+                e.key == "a" ? "ArrowLeft" : "ArrowRight",
+                "keyup"
+            );
+        }
+    });
+
 }
 
 (function() {
