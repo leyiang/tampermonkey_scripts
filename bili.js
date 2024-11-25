@@ -3,6 +3,9 @@ function slog(...args) {
     console.log("[SBili] ", ...args);
 }
 
+/**
+ * @param {HTMLElement} el HTML Element to disable hover.
+ */
 function disableElHover(el) {
     slog("Try to disable: ", el);
 
@@ -421,6 +424,14 @@ function key_shortcuts() {
 
 }
 
+function inject_style() {
+    let link = document.createElement('link');
+    link.href = "https://local.lc/tampermonkey/bili_style.css";
+    link.rel = 'stylesheet';
+
+    document.head.append(link);
+}
+
 (function() {
     'use strict';
     slog("Bili Enter Blocker Started");
@@ -448,4 +459,8 @@ function key_shortcuts() {
     updateRole();
 
     key_shortcuts();
+
+    inject_style();
 })();
+
+console.log( "999", arguments );

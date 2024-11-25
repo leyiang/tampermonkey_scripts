@@ -1,0 +1,23 @@
+[class^="paybar_container__"] {
+    display: none!important;
+}
+
+.bpx-player-progress-area,
+.bpx-player-progress-wrap,
+.bpx-player-progress {
+    height: 14px!important;
+    padding: 0!important;
+}
+
+#biliMainHeader,
+.bili-header,
+.bili-header__bar{
+    height: 40px!important
+}
+
+
+/* enlarge the max-height of bili play-list container */
+.video-sections-content-list {
+    height: unset!important;
+    max-height: 500px!important;
+}
