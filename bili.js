@@ -237,15 +237,34 @@ function updateRole() {
         });
     });
 
-    document.addEventListener("DOMNodeInserted", e => {
-        if( e.target instanceof HTMLElement ) {
-            selectors.forEach(selector => {
-                e.target.querySelectorAll(selector).forEach( el => {
-                    el.setAttribute('role', 'button');
-                });
+
+    function update(el) {
+        selectors.forEach(selector => {
+            el.querySelectorAll(selector).forEach( el => {
+                el.setAttribute('role', 'button');
             });
-        }
-    });
+        });
+
+        document.querySelectorAll('.search-panel .clear').forEach(el => {
+            el.setAttribute("tabindex", "0")
+        })
+    }
+
+    const id = setInterval(() => {
+        console.log(9999, "interval 123");
+        update( document );
+    }, 500 );
+
+    setTimeout(() => {
+        clearInterval( id );
+
+        document.addEventListener("DOMNodeInserted", e => {
+            if( e.target instanceof HTMLElement ) {
+                console.log(9999, "inject 123");
+                update( e.target );
+            }
+        });
+    }, 2000 );
 }
 
 
