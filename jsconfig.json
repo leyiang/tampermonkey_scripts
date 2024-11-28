@@ -1,0 +1,15 @@
+{
+	"files": [
+		"src/bili_tamper/bili.js"
+	],
+	"include": [
+		"src/**/*.js"
+	],
+	"compilerOptions": {
+		"lib": [
+			"es2016",
+			"dom"
+		],
+		"checkJs": true
+	},
+}

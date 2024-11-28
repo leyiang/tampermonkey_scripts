@@ -1,0 +1,16 @@
+#!/bin/bash
+
+# res=$(npx rollup -c)
+npx rollup -c
+
+if [ $? -ne 0 ]; then
+    notify-send -t 3000 -u critical "Error occured"
+    exit 1
+fi
+
+cp src/style dist -r
+cp src/bili_tamper/bili_style.css dist
+rm -rf /var/www/html/tampermonkey
+mv dist /var/www/html/tampermonkey
+
+notify-send -t 2000 compile

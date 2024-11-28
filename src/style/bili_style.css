@@ -1,0 +1,37 @@
+[class^="paybar_container__"] {
+    display: none!important;
+}
+
+.bpx-player-progress-area,
+.bpx-player-progress-wrap,
+.bpx-player-progress {
+    height: 14px!important;
+    padding: 0!important;
+}
+
+.bpx-player-progress-schedule-wrap {
+    transition: transform .3s;
+}
+
+.bpx-player-progress-schedule-current {
+    transition: transform .2s;
+}
+
+#biliMainHeader,
+.bili-header,
+.bili-header__bar{
+    height: 40px!important
+}
+
+
+/* enlarge the max-height of bili play-list container */
+.video-sections-content-list {
+    height: unset!important;
+    max-height: 500px!important;
+}
+
+/* 设置最小高度, 防止滚动条乱跳 */
+/* b前端=s**t */
+#submit-video {
+    min-height: 1182px;
+}
