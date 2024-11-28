@@ -10,14 +10,13 @@ function navigate_page(dir) {
 
 		dir == "prev"
 			? wrap.firstElementChild?.click()
-			: wrap.lastElementChild?.click()
+			: wrap.lastElementChild?.click();
 
 		setTimeout(() => {
 			document.documentElement.scrollTop = 227;
 		}, wait);
 		// Space Page
 	} else if (window.location.host == "space.bilibili.com") {
-
 		if (dir == "prev") {
 			document.querySelector(".be-pager-prev")?.click();
 		} else {
@@ -49,52 +48,53 @@ function send_key_press(key = "ArrowRight", eventType = "keydown") {
 		shiftKey: false,
 		metaKey: false,
 		repeat: false,
-		bubbles: true
+		bubbles: true,
 	});
 
 	window.dispatchEvent(evt);
 }
 export function bili_keys() {
-	document.addEventListener('keydown', (e) => {
+	document.addEventListener("keydown", (e) => {
 		slog(e.key);
 
 		if (e.key === "`") {
 			let curFull = !!document.fullscreenElement;
 
-			const btn = document.querySelector(".bpx-player-ctrl-full").click()
+			const btn = document.querySelector(".bpx-player-ctrl-full").click();
 
 			if (curFull && document.documentElement.scrollTop < 690) {
 				// 让播放器在屏幕居中
-				center_player()
+				center_player();
 			}
 		} else if (e.key == "a" || e.key == "s") {
 			if (document.activeElement.tagName == "INPUT") {
 				return;
 			}
 
-			if (["search.bilibili.com", "space.bilibili.com"].includes(window.location.host)) {
+			if (
+				["search.bilibili.com", "space.bilibili.com"].includes(
+					window.location.host,
+				)
+			) {
 				navigate_page(
 					// "1" means prev
 					// "2" means next
-					e.key == "a" ? "prev" : "next"
+					e.key == "a" ? "prev" : "next",
 				);
 			} else {
-				send_key_press(
-					e.key == "a" ? "ArrowLeft" : "ArrowRight"
-				);
+				send_key_press(e.key == "a" ? "ArrowLeft" : "ArrowRight");
 			}
 		} else if (e.key == "A" || e.key == "S") {
-			send_key_press(
-				e.key == "A" ? "ArrowDown" : "ArrowUp"
-			);
+			send_key_press(e.key == "A" ? "ArrowDown" : "ArrowUp");
 		} else if (e.key == "c") {
 			// svg-icon 控制字幕打开与关闭
 			// -subtitle 控制字幕管理菜单
 			// 这里实现: 开关字幕但不显示菜单
-			document.querySelector(".bpx-player-ctrl-subtitle .bpx-common-svg-icon").click();
+			document
+				.querySelector(".bpx-player-ctrl-subtitle .bpx-common-svg-icon")
+				.click();
 			document.querySelector(".bpx-player-ctrl-subtitle").click();
 		} else if (e.key == "q") {
-
 			// ctrl+q is reserved
 			if (e.ctrlKey) {
 				return;
@@ -111,12 +111,9 @@ export function bili_keys() {
 		}
 	});
 
-	document.addEventListener('keyup', (e) => {
+	document.addEventListener("keyup", (e) => {
 		if (e.key == "a" || e.key == "s") {
-			send_key_press(
-				e.key == "a" ? "ArrowLeft" : "ArrowRight",
-				"keyup"
-			);
+			send_key_press(e.key == "a" ? "ArrowLeft" : "ArrowRight", "keyup");
 		}
 	});
 }

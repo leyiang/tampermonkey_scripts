@@ -6,6 +6,6 @@ import { injectUtils } from "./inject";
 	'use strict';
 
 	injectUtils();
-    inject_style();
+	inject_style();
 	register_keyshortcuts();
 })();

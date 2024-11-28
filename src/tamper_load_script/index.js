@@ -1,12 +1,12 @@
 import { slog } from "../utils/utils";
 
 function exec_script(path) {
-	var nodeJSEndPoint = path + '?time=' + Date.now();
+	var nodeJSEndPoint = path + "?time=" + Date.now();
 	slog("start");
 
 	function evaluateScript(scriptContent) {
 		// @ts-ignore
-		GM_addElement('script', { textContent: scriptContent });
+		GM_addElement("script", { textContent: scriptContent });
 	}
 
 	// Function to handle the GM_xmlhttpRequest response
@@ -21,15 +21,15 @@ function exec_script(path) {
 
 	// Function to make the GM_xmlhttpRequest
 	function makeRequest() {
-		slog('make request');
+		slog("make request");
 
 		// @ts-ignore
 		GM_xmlhttpRequest({
-			method: 'GET',
+			method: "GET",
 			url: nodeJSEndPoint,
 			onload: handleResponse,
 
-			onerror: handleResponse
+			onerror: handleResponse,
 		});
 	}
 

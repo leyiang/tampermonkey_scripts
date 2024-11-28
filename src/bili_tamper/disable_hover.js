@@ -13,18 +13,26 @@ export function disableElHover(el) {
 	let allowHover = false;
 	let open = true;
 
-	el.addEventListener("mouseenter", e => {
-		// Click stimulate hover event
-		if (allowHover) return;
-		e.stopPropagation();
-	}, true);
+	el.addEventListener(
+		"mouseenter",
+		(e) => {
+			// Click stimulate hover event
+			if (allowHover) return;
+			e.stopPropagation();
+		},
+		true,
+	);
 
-	el.addEventListener("mouseleave", e => {
-		if (allowHover) return;
-		e.stopPropagation();
-	}, true);
+	el.addEventListener(
+		"mouseleave",
+		(e) => {
+			if (allowHover) return;
+			e.stopPropagation();
+		},
+		true,
+	);
 
-	el.addEventListener("click", _ => {
+	el.addEventListener("click", (_) => {
 		const hoverEvent = document.createEvent("MouseEvents");
 		hoverEvent.initMouseEvent(open ? "mouseenter" : "mouseleave");
 		open = !open;
@@ -38,7 +46,6 @@ export function disableElHover(el) {
 		el.dispatchEvent(hoverEvent);
 	});
 }
-
 
 const sel_list = [
 	".up-info--left",
@@ -55,8 +62,8 @@ const sel_list = [
 export function disableHover() {
 	slog("Try to disable hover");
 
-	sel_list.forEach(sel => {
-		listenForDOM(sel, el => {
+	sel_list.forEach((sel) => {
+		listenForDOM(sel, (el) => {
 			disableElHover(el);
 		});
 	});

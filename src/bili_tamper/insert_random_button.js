@@ -1,7 +1,7 @@
 import { getRandomItem, listenForDOM, newButtonNode } from "../utils/utils";
 
 export function insertRandomButton() {
-	listenForDOM(".watch-later-list", wrap => {
+	listenForDOM(".watch-later-list", (wrap) => {
 		const btn = newButtonNode("随机播放");
 		btn.className = "s-btn";
 

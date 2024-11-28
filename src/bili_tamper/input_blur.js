@@ -9,10 +9,14 @@ export function inputBlur() {
 		}
 	}
 
-	listenForDOM(".nav-search-input", el => {
+	listenForDOM(".nav-search-input", (el) => {
 		el.addEventListener("blur", (e) => {
-			if (e.type === 'blur' && e.relatedTarget && e.relatedTarget.tagName !== "INPUT") {
-				slog('Click blur event', e.relatedTarget);
+			if (
+				e.type === "blur" &&
+				e.relatedTarget &&
+				e.relatedTarget.tagName !== "INPUT"
+			) {
+				slog("Click blur event", e.relatedTarget);
 				return;
 			}
 
@@ -24,10 +28,14 @@ export function inputBlur() {
 		});
 	});
 
-	listenForDOM(".search-input-el", el => {
+	listenForDOM(".search-input-el", (el) => {
 		el.addEventListener("blur", (e) => {
-			if (e.type === 'blur' && e.relatedTarget && e.relatedTarget.tagName !== "INPUT") {
-				slog('Click blur event', e.relatedTarget);
+			if (
+				e.type === "blur" &&
+				e.relatedTarget &&
+				e.relatedTarget.tagName !== "INPUT"
+			) {
+				slog("Click blur event", e.relatedTarget);
 				return;
 			}
 

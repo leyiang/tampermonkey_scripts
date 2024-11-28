@@ -1,6 +1,6 @@
 export function slog(...args) {
 	console.log("%c" + "[SBili]", "color:red;font-weight:bold;");
-	console.log("[SBili] ", ...args );
+	console.log("[SBili] ", ...args);
 }
 
 export function listenForDOM(sel, cb, tryCount = 0) {
@@ -17,7 +17,10 @@ export function listenForDOM(sel, cb, tryCount = 0) {
 }
 
 export function parseTime(strTime = "00:00") {
-	const info = strTime.split(":").map(s => Number(s)).reverse();
+	const info = strTime
+		.split(":")
+		.map((s) => Number(s))
+		.reverse();
 	let res = 0;
 
 	res += info[0];
@@ -27,9 +30,7 @@ export function parseTime(strTime = "00:00") {
 }
 
 export function getRandomItem(arr) {
-	return arr[
-		Math.floor(Math.random() * arr.length)
-	];
+	return arr[Math.floor(Math.random() * arr.length)];
 }
 
 export function newButtonNode(title) {
@@ -38,23 +39,22 @@ export function newButtonNode(title) {
 	return button;
 }
 
-
 export function center_player() {
 	const el = document.querySelector("video");
 	slog("vvv", el);
 
 	setTimeout(() => {
 		el.old_scroll({
-			behavior: 'auto',
-			block: 'center',
-			inline: 'center'
+			behavior: "auto",
+			block: "center",
+			inline: "center",
 		});
 	}, 100);
 	// window.scrollTo(0, 70);
 }
 
-export function newEl( inner ) {
-    const div = document.createElement("div");
-    div.innerHTML = inner;
-    return div.firstElementChild;
+export function newEl(inner) {
+	const div = document.createElement("div");
+	div.innerHTML = inner;
+	return div.firstElementChild;
 }
