@@ -53,67 +53,66 @@ function send_key_press(key = "ArrowRight", eventType = "keydown") {
 
 	window.dispatchEvent(evt);
 }
-export function bili_keys() {
-	document.addEventListener("keydown", (e) => {
-		slog(e.key);
+export function bili_keys(e) {
+	slog(e.key);
 
-		if (e.key === "`") {
-			let curFull = !!document.fullscreenElement;
+	if (e.key === "`") {
+		let curFull = !!document.fullscreenElement;
 
-			const btn = document.querySelector(".bpx-player-ctrl-full").click();
+		const btn = document.querySelector(".bpx-player-ctrl-full").click();
 
-			if (curFull && document.documentElement.scrollTop < 690) {
-				// 让播放器在屏幕居中
-				center_player();
-			}
-		} else if (e.key == "a" || e.key == "s") {
-			if (document.activeElement.tagName == "INPUT") {
-				return;
-			}
-
-			if (
-				["search.bilibili.com", "space.bilibili.com"].includes(
-					window.location.host,
-				)
-			) {
-				navigate_page(
-					// "1" means prev
-					// "2" means next
-					e.key == "a" ? "prev" : "next",
-				);
-			} else {
-				send_key_press(e.key == "a" ? "ArrowLeft" : "ArrowRight");
-			}
-		} else if (e.key == "A" || e.key == "S") {
-			send_key_press(e.key == "A" ? "ArrowDown" : "ArrowUp");
-		} else if (e.key == "c") {
-			// svg-icon 控制字幕打开与关闭
-			// -subtitle 控制字幕管理菜单
-			// 这里实现: 开关字幕但不显示菜单
-			document
-				.querySelector(".bpx-player-ctrl-subtitle .bpx-common-svg-icon")
-				.click();
-			document.querySelector(".bpx-player-ctrl-subtitle").click();
-		} else if (e.key == "q") {
-			// ctrl+q is reserved
-			if (e.ctrlKey) {
-				return;
-			}
-
-			// only work for single q press
-
-			e.stopPropagation();
-
-			send_key_press("d");
-			setTimeout(() => {
-				send_key_press("d", "keyup");
-			}, 100);
+		if (curFull && document.documentElement.scrollTop < 690) {
+			// 让播放器在屏幕居中
+			center_player();
 		}
-	});
-
-	document.addEventListener("keyup", (e) => {
-		if (e.key == "a" || e.key == "s") {
-			send_key_press(e.key == "a" ? "ArrowLeft" : "ArrowRight", "keyup");
+	} else if (e.key == "a" || e.key == "s") {
+		if (document.activeElement.tagName == "INPUT") {
+			return;
 		}
-	});
+
+		if (
+			["search.bilibili.com", "space.bilibili.com"].includes(
+				window.location.host,
+			)
+		) {
+			navigate_page(
+				// "1" means prev
+				// "2" means next
+				e.key == "a" ? "prev" : "next",
+			);
+		} else {
+			send_key_press(e.key == "a" ? "ArrowLeft" : "ArrowRight");
+		}
+	} else if (e.key == "A" || e.key == "S") {
+		send_key_press(e.key == "A" ? "ArrowDown" : "ArrowUp");
+	} else if (e.key == "c") {
+		// svg-icon 控制字幕打开与关闭
+		// -subtitle 控制字幕管理菜单
+		// 这里实现: 开关字幕但不显示菜单
+		document
+			.querySelector(".bpx-player-ctrl-subtitle .bpx-common-svg-icon")
+			.click();
+		document.querySelector(".bpx-player-ctrl-subtitle").click();
+	} else if (e.key == "q") {
+		// ctrl+q is reserved
+		if (e.ctrlKey) {
+			return;
+		}
+
+		// only work for single q press
+
+		e.stopPropagation();
+
+		send_key_press("d");
+		setTimeout(() => {
+			send_key_press("d", "keyup");
+		}, 100);
+	}
+}
+
+
+export function bili_keys_up(e) {
+	if (e.key == "a" || e.key == "s") {
+		send_key_press(e.key == "a" ? "ArrowLeft" : "ArrowRight", "keyup");
+	}
 }
