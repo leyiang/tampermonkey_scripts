@@ -3,7 +3,7 @@ export function slog(...args) {
 	console.log("[SBili] ", ...args);
 }
 
-export function listenForDOM(sel, cb, tryCount = 0) {
+export function listenForDOM(sel, cb, timeoutMS=1000, tryCount = 0) {
 	if (tryCount > 20) return;
 
 	const el = document.querySelector(sel);
@@ -12,7 +12,7 @@ export function listenForDOM(sel, cb, tryCount = 0) {
 		slog("[BILI], Got el", el);
 		cb?.(el);
 	} else {
-		setTimeout(() => listenForDOM(sel, cb, tryCount + 1), 1000);
+		setTimeout(() => listenForDOM(sel, cb, timeoutMS, tryCount + 1), timeoutMS);
 	}
 }
 
@@ -57,4 +57,11 @@ export function newEl(inner) {
 	const div = document.createElement("div");
 	div.innerHTML = inner;
 	return div.firstElementChild;
+}
+
+
+export function toggle_fullscreen( el ) {
+	document.fullscreenElement
+		? document.exitFullscreen()
+		: el.requestFullscreen();
 }
