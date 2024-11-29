@@ -61,8 +61,18 @@ export function insertButton() {
 		const active = is_24_search_rule() ? "vui_button--active" : "";
 
 		const btn = newEl(
-			`<button class="vui_button vui_button--tab ${is_24_search_rule() ? "vui_button--active" : ""} mr_sm">24小时最多播放</button>`,
+			`<button class="vui_button vui_button--tab mr_sm">24小时最多播放</button>`,
 		);
+
+		function updateActive(btn) {
+			if( is_24_search_rule() ) {
+				btn.classList.add("vui_button--active");
+			} else {
+				btn.classList.remove("vui_button--active");
+			}
+		}
+
+		updateActive( btn );
 		wrap.appendChild(btn);
 
 		btn.addEventListener("click", (e) => {

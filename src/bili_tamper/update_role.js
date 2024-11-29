@@ -29,6 +29,12 @@ export function updateRole() {
 		document.querySelectorAll(".search-panel .clear").forEach((el) => {
 			el.setAttribute("tabindex", "0");
 		});
+
+		document.querySelectorAll(".fold-text").forEach((el) => {
+			el.setAttribute("tabindex", "0");
+		});
+
+		
 	}
 
 	const id = setInterval(() => {
