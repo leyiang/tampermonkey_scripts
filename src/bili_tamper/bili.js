@@ -9,7 +9,7 @@ import { listenForDOM, slog, center_player } from "../utils/utils";
 
 function setWidescreen() {
 	listenForDOM(".bpx-player-ctrl-wide", (el) => {
-		if (!document.fullscreen) {
+		if (!document.fullscreenElement) {
 			el.click();
 			center_player();
 		}
