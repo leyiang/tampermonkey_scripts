@@ -3,6 +3,43 @@ export function slog(...args) {
 	console.log("[SBili] ", ...args);
 }
 
+// export function listenForShadow(comp_list, cb, pnode=document, tryCount = 0) {
+// 	if (tryCount > 20) {
+// 		return;
+// 	}
+//
+// 	const el = pnode.querySelector(sel);
+//
+// 	if (el && el instanceof HTMLElement) {
+// 		slog("[BILI], Got el", el);
+// 		cb?.(el);
+// 	} else {
+// 		console.log( pnode, "retry" );
+// 		setTimeout(() => listenForDOM_a(sel, cb, pnode, tryCount + 1), 100);
+// 	}
+//
+// 	listenForDOM(" ", el => {
+// 		listenForDOM_a("", header => {
+// 		}, el.shadowRoot);
+// 	});
+// }
+
+export function listenForDOM_a(sel, cb, pnode, tryCount = 0) {
+	if (tryCount > 20) {
+		return;
+	}
+
+	const el = pnode.querySelector(sel);
+
+	if (el && el instanceof HTMLElement) {
+		slog("[BILI], Got el", el);
+		cb?.(el);
+	} else {
+		console.log( pnode, "retry" );
+		setTimeout(() => listenForDOM_a(sel, cb, pnode, tryCount + 1), 100);
+	}
+}
+
 export function listenForDOM(sel, cb, timeoutMS=1000, tryCount = 0) {
 	if (tryCount > 20) return;
 

@@ -5,13 +5,16 @@ import { inputBlur } from "./input_blur";
 import { insertRandomButton } from "./insert_random_button";
 import { updateRole } from "./update_role";
 import { fix_input_selection } from "./fix_input_selection";
-import { listenForDOM, slog, center_player } from "../utils/utils";
+import { listenForDOM, slog, center_player, listenForDOM_a } from "../utils/utils";
 
 function setWidescreen() {
 	listenForDOM(".bpx-player-ctrl-wide", (el) => {
 		if (!document.fullscreenElement) {
 			el.click();
-			center_player();
+
+			if (document.documentElement.scrollTop < 690) {
+				center_player();
+			}
 		}
 	});
 }
@@ -37,12 +40,9 @@ function disable_modify_scrolltop() {
 	// 选择你想要监控的元素
 	const element = document.body;
 
-	document.scrollTo =
-		document.body.scrollTo =
-		window.scrollTo =
-			() => {
-				slog("scrollTo disabled");
-			};
+	document.body.scrollTo = window.scrollTo = () => {
+		slog("scrollTo disabled");
+	};
 
 	Element.prototype.scrollTo = function () {
 		slog("scrollTo is disabled");
@@ -55,6 +55,26 @@ function disable_modify_scrolltop() {
 	};
 
 	Element.prototype.old_scroll = old_func;
+}
+
+function hide_comment() {
+	const style = document.createElement('style');
+	style.textContent = `
+		.bili-comments-bottom-fixed-wrapper {
+			display: none !important;
+		}
+	`;
+
+	// TODO: listenForShadow
+	// listenForShadow(["bili-comments", "bili-comments-header-renderer"], el => {
+	// 	el.shadowRoot.appendChild( style );
+	// });
+
+	listenForDOM("bili-comments", el => {
+		listenForDOM_a("bili-comments-header-renderer", header => {
+			header.shadowRoot.appendChild( style );
+		}, el.shadowRoot);
+	});
 }
 
 (function () {
@@ -84,4 +104,6 @@ function disable_modify_scrolltop() {
 	insertButton();
 
 	fix_input_selection();
+
+	hide_comment();
 })();
