@@ -38,7 +38,6 @@ export function updateRole() {
 	}
 
 	const id = setInterval(() => {
-		console.log(9999, "interval 123");
 		update(document);
 	}, 500);
 
@@ -47,7 +46,6 @@ export function updateRole() {
 
 		document.addEventListener("DOMNodeInserted", (e) => {
 			if (e.target instanceof HTMLElement) {
-				console.log(9999, "inject 123");
 				update(e.target);
 			}
 		});

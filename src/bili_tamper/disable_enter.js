@@ -11,7 +11,7 @@ export function disableEnterKey() {
 		"keydown",
 		(e) => {
 			if (e.key === "Enter") {
-				slog("Try to block enter");
+				// slog("Try to block enter");
 
 				if (document.activeElement?.tagName === "INPUT") {
 					// Allow Enter key to work in input

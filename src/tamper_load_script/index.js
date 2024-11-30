@@ -1,8 +1,10 @@
-import { slog } from "../utils/utils";
+import { createSlog, slog } from "../utils/utils";
+
+const log = createSlog("exec_script")
 
 function exec_script(path) {
 	var nodeJSEndPoint = path + "?time=" + Date.now();
-	slog("start");
+	log("准备执行脚本: ", nodeJSEndPoint);
 
 	function evaluateScript(scriptContent) {
 		// @ts-ignore
@@ -11,17 +13,17 @@ function exec_script(path) {
 
 	// Function to handle the GM_xmlhttpRequest response
 	function handleResponse(response) {
-		slog("on load");
 		if (response.status === 200 && response.responseText) {
+			log("获得200返回");
 			evaluateScript(response.responseText);
 		} else {
-			slog("Error Loading NodeJS Script: ", response.statusText);
+			log("请求错误", response.statusText);
 		}
 	}
 
 	// Function to make the GM_xmlhttpRequest
 	function makeRequest() {
-		slog("make request");
+		log("发送GET请求: ");
 
 		// @ts-ignore
 		GM_xmlhttpRequest({

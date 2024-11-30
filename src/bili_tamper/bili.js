@@ -80,8 +80,6 @@ function hide_comment() {
 (function () {
 	"use strict";
 
-	slog("Bili Enter Blocker Started");
-
 	/* Disable Enter Key */
 	disableEnterKey();
 

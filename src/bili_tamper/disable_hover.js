@@ -8,7 +8,6 @@ import { listenForDOM, slog } from "../utils/utils";
  * 非常影响操作, 这里禁止掉
  */
 export function disableElHover(el) {
-	slog("Try to disable: ", el);
 
 	let allowHover = false;
 	let open = true;
@@ -60,7 +59,7 @@ const sel_list = [
 ];
 
 export function disableHover() {
-	slog("Try to disable hover");
+	slog("禁用元素 JS Hover");
 
 	sel_list.forEach((sel) => {
 		listenForDOM(sel, (el) => {

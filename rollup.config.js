@@ -6,12 +6,12 @@ export default [
 		treeshake: false,
 		input: 'src/tamper_load_script/index.js',
 		output: {
-			file: 'dist/load-4.js',
-			format: 'esm', // or 'cjs' based on your needs
+			file: 'dist/load-9.js',
+			format: 'esm',
 		},
 		plugins: [
-			resolve(), // Resolves third-party modules
-			commonjs(), // Converts CommonJS modules to ES6
+			resolve(),
+			commonjs(),
 		],
 	},
 	{
@@ -20,7 +20,7 @@ export default [
 			file: 'dist/bili.js',
 		},
 		plugins: [
-			resolve(), // Resolves third-party modules
+			resolve(),
 		],
 	},
 
@@ -28,11 +28,11 @@ export default [
 		input: 'src/all_script/all.js',
 		output: {
 			file: 'dist/all.js',
-			format: 'esm', // or 'cjs' based on your needs
+			format: 'esm',
 		},
 		plugins: [
-			resolve(), // Resolves third-party modules
-			commonjs(), // Converts CommonJS modules to ES6
+			resolve(),
+			commonjs(),
 		],
 	},
 ];

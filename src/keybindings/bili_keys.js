@@ -54,8 +54,6 @@ function send_key_press(key = "ArrowRight", eventType = "keydown") {
 	window.dispatchEvent(evt);
 }
 export function bili_keys(e) {
-	slog(e.key);
-
 	if (e.key === "`") {
 		let curFull = !!document.fullscreenElement;
 

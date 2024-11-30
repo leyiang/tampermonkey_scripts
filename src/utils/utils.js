@@ -1,6 +1,14 @@
 export function slog(...args) {
-	console.log("%c" + "[SBili]", "color:red;font-weight:bold;");
-	console.log("[SBili] ", ...args);
+	console.log(
+		"%c" + "[slog]", "color:red;font-weight:bold;",
+		...args
+	);
+}
+
+export function createSlog( tag="empty-tag" ) {
+	return (...args) => {
+		slog(`[${ tag }]`, ...args)
+	}
 }
 
 // export function listenForShadow(comp_list, cb, pnode=document, tryCount = 0) {
@@ -46,7 +54,7 @@ export function listenForDOM(sel, cb, timeoutMS=1000, tryCount = 0) {
 	const el = document.querySelector(sel);
 
 	if (el && el instanceof HTMLElement) {
-		slog("[BILI], Got el", el);
+		slog("[listenForDOM]", "成功获取元素", el);
 		cb?.(el);
 	} else {
 		setTimeout(() => listenForDOM(sel, cb, timeoutMS, tryCount + 1), timeoutMS);
