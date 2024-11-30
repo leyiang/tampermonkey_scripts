@@ -17,9 +17,9 @@ export function disableEnterKey() {
 					// Allow Enter key to work in input
 					return;
 				}
-
-				e.preventDefault();
-				e.stopPropagation();
+				//
+				// e.preventDefault();
+				// e.stopPropagation();
 			}
 		},
 		true,

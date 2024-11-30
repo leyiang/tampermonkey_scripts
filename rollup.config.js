@@ -35,6 +35,19 @@ export default [
 			commonjs(),
 		],
 	},
+
+	{
+		treeshake: false,
+		input: 'src/bar/bar.js',
+		output: {
+			file: 'dist/bar.js',
+			format: 'esm',
+		},
+		plugins: [
+			resolve(),
+			commonjs(),
+		],
+	},
 ];
 
 

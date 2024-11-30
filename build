@@ -9,7 +9,6 @@ if [ $? -ne 0 ]; then
 fi
 
 cp src/style dist -r
-cp src/bili_tamper/bili_style.css dist
 rm -rf /var/www/html/tampermonkey
 mv dist /var/www/html/tampermonkey
 
