@@ -3,6 +3,7 @@ const list = {
 	ytp       : "www.youtube.com",
 	live_bili : "live.bilibili.com",
 	drive     : "mypikpak.com",
+	tongyi    : "tongyi.aliyun.com",
 };
 
 export function is_host(name) {

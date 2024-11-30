@@ -1,6 +1,7 @@
-import { inject_style } from "./inject_style";
+import { inject_style }          from "./inject_style";
+import { injectUtils }           from "./inject";
+import { start_up }              from "./startup_code";
 import { register_keyshortcuts } from "../keybindings/keys";
-import { injectUtils } from "./inject";
 
 (function () {
 	'use strict';
@@ -8,4 +9,6 @@ import { injectUtils } from "./inject";
 	injectUtils();
 	inject_style();
 	register_keyshortcuts();
+
+	start_up();
 })();
