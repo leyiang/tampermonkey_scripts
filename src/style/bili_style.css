@@ -35,3 +35,9 @@
 #submit-video {
     min-height: 1182px;
 }
+
+/* 隐藏B站用户信息悬浮窗 */
+bili-user-profile {
+	visibility: none!important;
+	display: none!important;
+}
