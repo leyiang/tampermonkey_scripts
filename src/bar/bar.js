@@ -18,6 +18,10 @@ document.addEventListener("keydown", e => {
 	if (e.key === "o") {
 		const tagName = document.activeElement?.tagName?.toLowerCase?.();
 
+		if( document.fullscreenElement ) {
+			return;
+		}
+
 		if (tagName === 'input' || tagName === 'textarea') {
 			return;
 		}

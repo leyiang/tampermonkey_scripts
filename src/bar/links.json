@@ -1,0 +1,27 @@
+{
+	"my_list": {
+		"gpt"    : "https://tongyi.aliyun.com/",
+		"vim"    : "moz-extension://8138219b-7a99-436e-b611-80bbb88f5fc8/pages/options.html#",
+		"tm"     : "moz-extension://e2ba28e5-894b-4737-822f-c8c13cb8234b/options.html#nav=cf710200-6756-4556-b97d-0a01b3a0dbc0+editor",
+		"map"    : "https://www.desmos.com/calculator",
+		"later"  : "https://www.bilibili.com/watchlater/#/list",
+		"drive"  : "https://mypikpak.com/drive/all",
+		"git"    : "https://github.com/leyiang",
+		"weight" : "https://acnbayw2n3co.feishu.cn/share/base/form/shrcneL7i5ttzjnbUJiVyaZLJag",
+		"lrc"    : "https://local.lc/lrc/",
+		"sptlrx" : "https://github.com/raitonoberu/sptlrx",
+		"yazi"   : "https://github.com/sxyazi/yazi"
+	},
+
+	"search_list": {
+		"b"    : "https://search.bilibili.com/all?keyword=%s",
+		"d"    : "https://duckduckgo.com/?q=%s DuckDuckGo",
+		"cam"  : "https://www.britannica.com/dictionary/%s",
+		"y"    : "https://www.youtube.com/results?search_query=%s",
+		"book" : "https://annas-archive.org/search?q=%s&ext=pdf&ext=epub",
+		"you"  : "https://youdao.com/result?word=%s",
+		"z": "https://www.zhihu.com/search?type=content&q=%s",
+		"dig"  : "https://btdig.com/search?q=%s",
+		"163"  : "https://music.163.com/#/search/m/?s=%s"
+	}
+}

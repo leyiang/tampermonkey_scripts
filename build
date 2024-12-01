@@ -9,6 +9,7 @@ if [ $? -ne 0 ]; then
 fi
 
 cp src/style dist -r
+cp src/bar/links.json dist
 rm -rf /var/www/html/tampermonkey
 mv dist /var/www/html/tampermonkey
 
