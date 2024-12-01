@@ -19,4 +19,8 @@ export function inject_style() {
 	if (is_host("ytp")) {
 		inject_css_file(get_path("ytp_style.css"));
 	}
+
+	if (is_host("tongyi")) {
+		inject_css_file(get_path("tongyi_style.css"));
+	}
 }
