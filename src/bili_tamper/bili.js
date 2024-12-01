@@ -6,15 +6,12 @@ import { insertRandomButton } from "./insert_random_button";
 import { updateRole } from "./update_role";
 import { fix_input_selection } from "./fix_input_selection";
 import { listenForDOM, slog, center_player, listenForDOM_a } from "../utils/utils";
+import { hijack_comp } from "./hijack_web_comp";
 
 function setWidescreen() {
 	listenForDOM(".bpx-player-ctrl-wide", (el) => {
 		if (!document.fullscreenElement) {
 			el.click();
-
-			if (document.documentElement.scrollTop < 690) {
-				center_player();
-			}
 		}
 	});
 }
@@ -57,28 +54,10 @@ function disable_modify_scrolltop() {
 	Element.prototype.old_scroll = old_func;
 }
 
-function hide_comment() {
-	const style = document.createElement('style');
-	style.textContent = `
-		.bili-comments-bottom-fixed-wrapper {
-			display: none !important;
-		}
-	`;
-
-	// TODO: listenForShadow
-	// listenForShadow(["bili-comments", "bili-comments-header-renderer"], el => {
-	// 	el.shadowRoot.appendChild( style );
-	// });
-
-	listenForDOM("bili-comments", el => {
-		listenForDOM_a("bili-comments-header-renderer", header => {
-			header.shadowRoot.appendChild( style );
-		}, el.shadowRoot);
-	});
-}
-
 (function () {
 	"use strict";
+
+	hijack_comp();
 
 	/* Disable Enter Key */
 	disableEnterKey();
@@ -102,6 +81,4 @@ function hide_comment() {
 	insertButton();
 
 	fix_input_selection();
-
-	hide_comment();
 })();

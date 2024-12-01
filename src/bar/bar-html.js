@@ -1,4 +1,4 @@
-import { newEl } from "../utils/utils";
+import { newEl, slog } from "../utils/utils";
 
 // @ts-ignore
 const open = (url) => {
@@ -11,7 +11,7 @@ const open = (url) => {
 function getData( cb ) {
 	GM_xmlhttpRequest({
 		method: "GET",
-		url: "https://local.lc/tampermonkey/links.json",
+		url: "https://local.lc/tampermonkey/links.json?time=" + Date.now(),
 		onload: cb,
 		// onerror: handleResponse,
 	});
@@ -90,7 +90,25 @@ class MyBar extends HTMLElement {
 			if (url) {
 				open(url);
 			} else {
-				open("https://www.google.com/search?q=" + val);
+				const search_template = search_list[val];
+				slog("no url")
+
+				if( search_template ) {
+					to_search = val;
+					slog("got search_template")
+					setTimeout(() => {
+						if( clip ) {
+							slog("got clipboard", clip)
+							parse_search( clip )
+							clip = null;
+						} else {
+							slog("no clipboard", clip)
+							open("https://www.google.com/search?q=" + val);
+						}
+					}, 50);
+				} else {
+					open("https://www.google.com/search?q=" + val);
+				}
 			}
 		}
 
@@ -99,12 +117,13 @@ class MyBar extends HTMLElement {
 		input.focus();
 		
 		let to_search = null;
+		let clip = null;
 
-		function parse_search() {
+		function parse_search( val ) {
 			const search_template = search_list[to_search];
 
 			if (search_template) {
-				const query = encodeURIComponent(input.value);
+				const query = encodeURIComponent( val );
 				const url = search_template.replace("%s", query)
 
 				open(url);
@@ -113,7 +132,7 @@ class MyBar extends HTMLElement {
 
 		function set_to_search() {
 			to_search = input.value;
-			const span = newEl(`<span>${input.value}</span>`);
+			const span = newEl(`<span>${ to_search }</span>`);
 			bar.insertBefore(span, input);
 			input.value = "";
 		}
@@ -122,8 +141,12 @@ class MyBar extends HTMLElement {
 			e.stopPropagation();
 
 			if (e.key === "Enter") {
+				navigator.clipboard.readText().then(content => {
+					clip = content;
+				});
+
 				if (to_search) {
-					parse_search();
+					parse_search( input.value );
 				} else {
 					parse_url(input.value);
 				}

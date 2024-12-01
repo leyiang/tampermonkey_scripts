@@ -4,6 +4,7 @@ const list = {
 	live_bili : "live.bilibili.com",
 	drive     : "mypikpak.com",
 	tongyi    : "tongyi.aliyun.com",
+	dig:      "btdig.com"
 };
 
 export function is_host(name) {

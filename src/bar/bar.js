@@ -1,4 +1,3 @@
-import { inject_css_file } from "../all_script/inject_style";
 import { newEl } from "../utils/utils"
 import { MyBar } from "./bar-html";
 
@@ -36,6 +35,6 @@ document.addEventListener("keydown", e => {
 
 		setTimeout(() => {
 			insert_bar();
-		});
+		}, 50);
 	}
 });

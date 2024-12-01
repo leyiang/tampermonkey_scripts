@@ -1,0 +1,13 @@
+#credentials-picker-container {
+	display: none!important;
+}
+
+iframe[title="Sign in with Google Dialogue"] {
+	display: none!important;
+}
+
+.my-btn {
+	cursor: pointer;
+	font-size: 22px;
+	padding: 10px 20px;
+}

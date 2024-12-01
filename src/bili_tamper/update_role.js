@@ -46,7 +46,7 @@ export function updateRole() {
 
 		document.addEventListener("DOMNodeInserted", (e) => {
 			if (e.target instanceof HTMLElement) {
-				update(e.target);
+				update(e.target.parentNode);
 			}
 		});
 	}, 2000);
