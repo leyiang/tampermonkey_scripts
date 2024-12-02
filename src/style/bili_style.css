@@ -85,7 +85,7 @@ bili-user-profile {
 	position: absolute;
 	z-index: 78;
 
-	bottom: 20px;
+	top: 20px;
 	right: 20px;
 	transition: opacity .3s;
 }
