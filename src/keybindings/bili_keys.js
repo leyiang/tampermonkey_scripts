@@ -81,6 +81,7 @@ function send_key_press(key = "ArrowRight", eventType = "keydown") {
 		ArrowUp: 38,
 		ArrowDown: 40,
 		d: 68,
+		f: 70,
 	}[key];
 
 	const evt = new KeyboardEvent(eventType, {
@@ -100,11 +101,10 @@ function send_key_press(key = "ArrowRight", eventType = "keydown") {
 }
 export function bili_keys(e) {
 	if (e.key === "`") {
-		let curFull = !!document.fullscreenElement;
+		// const btn = document.querySelector(".bpx-player-ctrl-full").click();
+		send_key_press( "f" );
 
-		const btn = document.querySelector(".bpx-player-ctrl-full").click();
-
-		if (curFull && document.documentElement.scrollTop < 690) {
+		if (document.documentElement.scrollTop < 690) {
 			// 让播放器在屏幕居中
 			center_player();
 		}
