@@ -1,4 +1,49 @@
-import { slog, center_player } from "../utils/utils";
+import { slog, center_player, newEl, listenForDOM } from "../utils/utils";
+
+
+function scrollDown(dy=100) {
+	let currentScroll = window.scrollY || document.documentElement.scrollTop;
+	window.old_scroll_to(0, currentScroll + dy);
+}
+
+const prev_timeout = [];
+
+function showIndicator() {
+	prev_timeout.forEach( id => clearTimeout(id) );
+	prev_timeout.length = 0
+
+	let el = document.querySelector(".my-indicator");
+
+	if( ! el ) {
+		el = newEl("<div class='my-indicator hide'>12:33</div>");
+
+		listenForDOM(".bpx-player-video-area", wrap => {
+			wrap.appendChild( el );
+		});
+	}
+
+	const video = document.querySelector("video");
+
+	el.classList.remove("hide");
+
+	const formatTime = (seconds) => {
+		const minutes = Math.floor(seconds / 60);
+		const secs = Math.floor(seconds % 60).toString().padStart(2, '0');
+		return `${minutes}:${secs}`;
+	};
+
+	const currentTime = video.currentTime;
+ 	const duration = video.duration;
+
+    const raw = `${formatTime(currentTime)} / ${formatTime(duration)}`;
+	el.textContent = raw;
+
+	const timeout_id = setTimeout(() => {
+		el.classList.add("hide");
+	}, 800);
+
+	prev_timeout.push( timeout_id );
+}
 
 // dir = {prev|next}
 function navigate_page(dir) {
@@ -63,7 +108,7 @@ export function bili_keys(e) {
 			// 让播放器在屏幕居中
 			center_player();
 		}
-	} else if (e.key == "a" || e.key == "s") {
+	} else if (["a", "s", "h", "l"].includes(e.key)) {
 		if (document.activeElement.tagName == "INPUT") {
 			return;
 		}
@@ -79,7 +124,8 @@ export function bili_keys(e) {
 				e.key == "a" ? "prev" : "next",
 			);
 		} else {
-			send_key_press(e.key == "a" ? "ArrowLeft" : "ArrowRight");
+			send_key_press( ["a", "h"].includes(e.key) ? "ArrowLeft" : "ArrowRight");
+			showIndicator();
 		}
 	} else if (e.key == "A" || e.key == "S") {
 		send_key_press(e.key == "A" ? "ArrowDown" : "ArrowUp");
@@ -106,11 +152,34 @@ export function bili_keys(e) {
 			send_key_press("d", "keyup");
 		}, 100);
 	}
+
+	if( e.key == "j" ) {
+		send_key_press("ArrowDown");
+	}
+
+	if( e.key == "k" ) {
+		send_key_press("ArrowUp");
+	}
+
+	if( e.key == ")" ) {
+		document.querySelector("video").currentTime = 0;
+		showIndicator();
+	}
+
+
+	// Esc 会退出宽屏模式
+	// 这里屏蔽掉Esc，input 和 viumium 的 Esc 功能不受影响
+	if( e.key === "Escape" ) {
+		if( document.fullscreenElement?.tagName == "INPUT" ) {
+			return;
+		}
+		e.preventDefault();
+		e.stopPropagation();
+	}
 }
 
-
 export function bili_keys_up(e) {
-	if (e.key == "a" || e.key == "s") {
-		send_key_press(e.key == "a" ? "ArrowLeft" : "ArrowRight", "keyup");
+	if (["a", "s", "h", "l"].includes(e.key)) {
+		send_key_press(["a", "h"].includes(e.key) ? "ArrowLeft" : "ArrowRight", "keyup");
 	}
 }

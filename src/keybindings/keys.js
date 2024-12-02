@@ -6,7 +6,7 @@ import { ytp_keys } from "./ytp_keys";
 export function register_keyshortcuts() {
 	document.addEventListener("keydown", e => {
 		if (is_host("ytp")) ytp_keys(e);
-		if (is_host("bili")) bili_keys(e);
+		if (window.location.host.endsWith("bilibili.com") ) bili_keys(e);
 
 		if (is_host("live_bili")) {
 			if (e.key === "`") {

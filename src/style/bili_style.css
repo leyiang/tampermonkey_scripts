@@ -53,6 +53,44 @@ bili-user-profile {
 	display: none!important;
 }
 
+/* 调整动态页面宽度 */
 .bili-dyn-home--member > main {
 	width: 720px!important;
+}
+
+
+/* 隐藏右侧小按钮(回顶部) */
+.fixed-sidenav-storage,
+.bili-dyn-sidebar {
+/* .back-to-top-wrap, */
+/* .bili-dyn-sidebar__btn:has(.back-top) { */
+    display: none!important;
+}
+
+
+.my-indicator {
+	-webkit-box-align: center;
+	-ms-flex-align: center;
+	align-items: center;
+	background: hsla(0,0%,100%,.8);
+	border-radius: 4px;
+	color: #000;
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	font-size: 20px;
+	height: 32px;
+	min-width: 84px;
+	padding: 8px;
+	position: absolute;
+	z-index: 78;
+
+	bottom: 20px;
+	right: 20px;
+	transition: opacity .3s;
+}
+
+.my-indicator.hide {
+	opacity: 0;
+	visibility: none;
 }
