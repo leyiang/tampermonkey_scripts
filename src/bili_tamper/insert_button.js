@@ -76,7 +76,7 @@ export function insertButton() {
 		wrap.appendChild(btn);
 
 		btn.addEventListener("click", (e) => {
-			const url = new URL(window.location);
+			const url = new URL(window.location.href);
 			const search = new URLSearchParams(url.search);
 
 			const date = new Date();

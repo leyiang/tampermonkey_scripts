@@ -89,6 +89,7 @@ export function center_player() {
 	slog("vvv", el);
 
 	setTimeout(() => {
+		//@ts-ignore
 		el.old_scroll({
 			behavior: "auto",
 			block: "center",

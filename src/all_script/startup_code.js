@@ -22,7 +22,9 @@ export function start_up() {
 			document.querySelectorAll(".one_result").forEach( wrap => {
 				const a = wrap.querySelector('.fa-magnet a');
 
-				links.push( a.href );
+				if( a instanceof HTMLAnchorElement ) {
+					links.push( a.href );
+				}
 			});
 
 			const raw = links.join("\n")

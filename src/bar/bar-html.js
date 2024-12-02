@@ -1,7 +1,7 @@
 import { newEl, slog } from "../utils/utils";
 
-// @ts-ignore
 const open = (url) => {
+	// @ts-ignore
 	GM_openInTab(url, {
 		active    : true,
 		setParent : true
@@ -9,6 +9,7 @@ const open = (url) => {
 }
 
 function getData( cb ) {
+	// @ts-ignore
 	GM_xmlhttpRequest({
 		method: "GET",
 		url: "https://local.lc/tampermonkey/links.json?time=" + Date.now(),

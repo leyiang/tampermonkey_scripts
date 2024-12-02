@@ -10,7 +10,7 @@
  * 2. blur时自动取消selection
  */
 
-import { listenForDOM } from "../utils/utils";
+import { listenForDOM, slog } from "../utils/utils";
 
 export function fix_input_selection() {
 	listenForDOM(".search-input-el", (el) => {

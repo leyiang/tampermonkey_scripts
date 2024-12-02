@@ -9,6 +9,7 @@ export function updateRole() {
 		".bili-rich-text__action",
 		".bili-dyn-up-list__item",
 		".history-item",
+		".b-img__inner img",
 	];
 
 	selectors.forEach((selector) => {
@@ -27,7 +28,7 @@ export function updateRole() {
 		});
 
 		document.querySelectorAll(".search-panel .clear").forEach((el) => {
-			el.setAttribute("tabindex", "0");
+			el.setAttribute("tabindex", "2");
 		});
 
 		document.querySelectorAll(".fold-text").forEach((el) => {

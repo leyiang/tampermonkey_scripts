@@ -5,7 +5,7 @@ import { inputBlur } from "./input_blur";
 import { insertRandomButton } from "./insert_random_button";
 import { updateRole } from "./update_role";
 import { fix_input_selection } from "./fix_input_selection";
-import { listenForDOM, slog, center_player, listenForDOM_a } from "../utils/utils";
+import { listenForDOM, slog, center_player, listenForDOM_a, newEl } from "../utils/utils";
 import { hijack_comp } from "./hijack_web_comp";
 
 function setWidescreen() {
@@ -37,6 +37,12 @@ function disable_modify_scrolltop() {
 	// 选择你想要监控的元素
 	const element = document.body;
 
+	// @ts-ignore
+	Element.prototype.old_scroll = Element.prototype.scrollIntoView;;
+
+	// @ts-ignore
+	window.old_scroll_to = window.scrollTo;
+
 	document.body.scrollTo = window.scrollTo = () => {
 		slog("scrollTo disabled");
 	};
@@ -45,13 +51,9 @@ function disable_modify_scrolltop() {
 		slog("scrollTo is disabled");
 	};
 
-	const old_func = Element.prototype.scrollIntoView;
-
 	Element.prototype.scrollIntoView = function () {
 		slog("scrollIntoView is disabled.");
 	};
-
-	Element.prototype.old_scroll = old_func;
 }
 
 (function () {

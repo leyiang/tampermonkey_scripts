@@ -3,7 +3,9 @@ import { listenForDOM_a } from "../utils/utils";
 function wrap_comp(comp, onConnect) {
 	const new_comp = class extends comp {
 		connectedCallback() {
+			// @ts-ignore
 			if (super.connectedCallback) {
+				// @ts-ignore
 				super.connectedCallback();
 			}
 
