@@ -137,6 +137,9 @@ export function bili_keys(e) {
 			.querySelector(".bpx-player-ctrl-subtitle .bpx-common-svg-icon")
 			.click();
 		document.querySelector(".bpx-player-ctrl-subtitle").click();
+
+
+		// q => 开关弹幕
 	} else if (e.key == "q") {
 		// ctrl+q is reserved
 		if (e.ctrlKey) {
@@ -175,6 +178,13 @@ export function bili_keys(e) {
 		}
 		e.preventDefault();
 		e.stopPropagation();
+	}
+
+
+	// 拦截默认方向键, 添加小功能, 测试了不会死循环
+	if( ["ArrowLeft", "ArrowRight"].includes(e.key) ) {
+		send_key_press( e.key );
+		showIndicator();
 	}
 }
 
