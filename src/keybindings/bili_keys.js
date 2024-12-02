@@ -100,6 +100,10 @@ function send_key_press(key = "ArrowRight", eventType = "keydown") {
 	window.dispatchEvent(evt);
 }
 export function bili_keys(e) {
+	if (document.activeElement.tagName == "INPUT") {
+		return;
+	}
+
 	if (e.key === "`") {
 		// const btn = document.querySelector(".bpx-player-ctrl-full").click();
 		send_key_press( "f" );
@@ -109,10 +113,6 @@ export function bili_keys(e) {
 			center_player();
 		}
 	} else if (["a", "s", "h", "l"].includes(e.key)) {
-		if (document.activeElement.tagName == "INPUT") {
-			return;
-		}
-
 		if (
 			["search.bilibili.com", "space.bilibili.com"].includes(
 				window.location.host,
